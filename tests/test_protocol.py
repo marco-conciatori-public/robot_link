@@ -85,9 +85,9 @@ def test_recv_message_none_on_close():
 def test_command_roundtrip():
     a, b = _pair()
     try:
-        protocol.send_command(a, 'turn_on_headlight', {'level': 2})
+        protocol.send_command(a, 'move_arm', {'x_axis': 0.5, 'z_axis': -1})
         command = protocol.recv_command(b)
-        assert command == {'name': 'turn_on_headlight', 'args': {'level': 2}}
+        assert command == {'name': 'move_arm', 'args': {'x_axis': 0.5, 'z_axis': -1}}
     finally:
         a.close()
         b.close()
@@ -96,9 +96,9 @@ def test_command_roundtrip():
 def test_command_defaults_args_to_empty_dict():
     a, b = _pair()
     try:
-        protocol.send_command(a, 'toggle_headlight')
+        protocol.send_command(a, 'next_mode')
         command = protocol.recv_command(b)
-        assert command == {'name': 'toggle_headlight', 'args': {}}
+        assert command == {'name': 'next_mode', 'args': {}}
     finally:
         a.close()
         b.close()
